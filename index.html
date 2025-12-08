@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vending Machine</title>
+</head>
+<body>
+    <h1>Vending Machine</h1>
+
+    <button onclick="dispense('coke')">🥤 Coke</button>
+
+    <script>
+        function dispense(item) {
+            fetch("https://abcd-1234.ngrok.io/dispense?item=" + item);
+            alert("Dispensing " + item);
+        }
+    </script>
+</body>
+</html>
