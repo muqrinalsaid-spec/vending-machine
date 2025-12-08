@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vending Machine</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    h1 { text-align:center; }
+    .grid { display: grid; grid-template-columns: repeat(1,1fr); gap: 12px; margin-top: 18px; }
+    .card { padding: 12px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); text-align:center; }
+    .card button { margin-top: 10px; padding: 8px 10px; font-size: 15px; cursor: pointer; }
+    #status { margin-top: 18px; min-height: 22px; text-align:center; }
+  </style>
+</head>
+<body>
+  <h1>Vending Machine</h1>
+
+  <div class="grid" id="items"></div>
+  <div id="status"></div>
+
+  <script>
+    const PI_BASE = "https://winona-liable-nonclamorously.ngrok-free.dev";
+
+    const PRODUCTS = [
+      { id: "coke",  name: "🥤 Coke",      price: 0.50 },
+      { id: "chips", name: "🍟 Chips",     price: 0.60 },
+      { id: "choco", name: "🍫 Chocolate", price: 0.75 }
+    ];
+
+    const itemsDiv = document.getElementById('items');
+    const statusDiv = document.getElementById('status');
+
+    PRODUCTS.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<strong>${p.name}</strong><div>$${p.price.toFixed(2)}</div>`;
+      const btn = document.createElement('button');
+      btn.textContent = 'Dispense';
+      btn.onclick = () => dispense(p.id, p.name);
+      card.appendChild(btn);
+      itemsDiv.appendChild(card);
+    });
+
+    async function dispense(itemId, prettyName) {
+      statusDiv.textContent = `Dispensing ${prettyName}...`;
+
+      try {
+        const resp = await fetch(`${PI_BASE}/dispense?item=${encodeURIComponent(itemId)}`, {
+          method: 'GET',
+          mode: 'cors'
+        });
+
+        const text = await resp.text();
+        statusDiv.textContent = `Response: ${text}`;
+      } catch (err) {
+        statusDiv.textContent = 'Error: ' + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
+
