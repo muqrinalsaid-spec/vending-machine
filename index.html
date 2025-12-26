@@ -5,12 +5,89 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vending Machine</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-    h1 { text-align:center; }
-    .grid { display: grid; grid-template-columns: repeat(1,1fr); gap: 12px; margin-top: 18px; }
-    .card { padding: 12px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); text-align:center; }
-    .card button { margin-top: 10px; padding: 8px 10px; font-size: 15px; cursor: pointer; }
-    #status { margin-top: 18px; min-height: 22px; text-align:center; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      margin: 0;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #343a40;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 16px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .card strong {
+      font-size: 1.2em;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .card button {
+      margin-top: 12px;
+      padding: 10px 14px;
+      font-size: 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .card button:hover {
+      background-color: #0056b3;
+    }
+
+    #status {
+      margin-top: 24px;
+      font-size: 16px;
+      text-align: center;
+      color: #495057;
+      min-height: 24px;
+    }
+
+    .qr-section {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .qr-section img {
+      width: 160px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .qr-section p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #6c757d;
+    }
   </style>
 </head>
 <body>
@@ -19,13 +96,29 @@
   <div class="grid" id="items"></div>
   <div id="status"></div>
 
+  <div class="qr-section">
+    <img src="qr-code.png" alt="Malaysia National QR" />
+    <p>Scan to pay or access remotely</p>
+  </div>
+  <footer style="margin-top: 50px; text-align: center; font-size: 14px; color: #6c757d;">
+    <h3 style="margin-bottom: 10px; color: #343a40;">Collaborators</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li>Muqrin Alsaid — 1002579568</li>
+      <li>Elie Chahoud — 1002579703</li>
+      <li>Lim Jing Fuh — 1002580401</li>
+      <li>Fatima Mohammed — 1002577367</li>
+      <li>Saada Seif — 1002579684</li>
+      <li>Hala Hatim — 1002579845</li>
+    </ul>
+  </footer>
+
 <script>
   const PI_BASE = "https://winona-liable-nonclamorously.ngrok-free.dev";
 
   const PRODUCTS = [
-    { id: "coke",  name: "🥤 Coke",      price: 0.50 },
+    { id: "coke",  name: "Ⓜ️ M&M's",      price: 0.50 },
     { id: "chips", name: "🍟 Chips",     price: 0.60 },
-    { id: "choco", name: "🍫 Chocolate", price: 0.75 }
+    { id: "choco", name: "🍫 Kitkat", price: 0.75 }
   ];
 
   const itemsDiv = document.getElementById('items');
@@ -60,7 +153,8 @@
       statusDiv.textContent = 'Error: ' + err.message;
     }
   }
-  </script>
+</script>
 </body>
 </html>
+
 
