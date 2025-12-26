@@ -13,86 +13,20 @@
       max-width: 700px;
       margin: auto;
     }
-
-    h1 {
-      text-align: center;
-      font-size: 2em;
-      margin-bottom: 10px;
-      color: #343a40;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 16px;
-      text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-    }
-
-    .card strong {
-      font-size: 1.2em;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .card button {
-      margin-top: 12px;
-      padding: 10px 14px;
-      font-size: 15px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .card button:hover {
-      background-color: #0056b3;
-    }
-
-    #status {
-      margin-top: 24px;
-      font-size: 16px;
-      text-align: center;
-      color: #495057;
-      min-height: 24px;
-    }
-
-    .qr-section {
-      margin-top: 40px;
-      text-align: center;
-    }
-
-    .qr-section img {
-      width: 160px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .qr-section p {
-      margin-top: 8px;
-      font-size: 14px;
-      color: #6c757d;
-    }
+    h1 { text-align: center; font-size: 2em; margin-bottom: 10px; color: #343a40; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 20px; }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 16px; text-align: center; }
+    .card strong { font-size: 1.2em; display: block; margin-bottom: 6px; }
+    .card button { margin-top: 12px; padding: 10px 14px; font-size: 15px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    .card button:hover { background-color: #0056b3; }
+    #status { margin-top: 24px; font-size: 16px; text-align: center; color: #495057; min-height: 24px; }
+    .qr-section { margin-top: 40px; text-align: center; }
+    .qr-section img { width: 160px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .qr-section p { margin-top: 8px; font-size: 14px; color: #6c757d; }
   </style>
 </head>
 <body>
   <h1>Vending Machine</h1>
-
   <div class="grid" id="items"></div>
   <div id="status"></div>
 
@@ -100,22 +34,11 @@
     <img src="qr-code.png" alt="Malaysia National QR" />
     <p>Scan to pay or access remotely</p>
   </div>
-  <footer style="margin-top: 50px; text-align: center; font-size: 14px; color: #6c757d;">
-    <h3 style="margin-bottom: 10px; color: #343a40;">Collaborators</h3>
-    <ul style="list-style: none; padding: 0;">
-      <li>Muqrin Alsaid — 1002579568</li>
-      <li>Elie Chahoud — 1002579703</li>
-      <li>Lim Jing Fuh — 1002580401</li>
-      <li>Fatima Mohammed — 1002577367</li>
-      <li>Saada Seif — 1002579684</li>
-      <li>Hala Hatim — 1002579845</li>
-    </ul>
-  </footer>
 
 <script>
   const PI_BASE = "https://winona-liable-nonclamorously.ngrok-free.dev";
 
-  // ✅ IDs now match backend: "kitkat", "mms", "chips"
+  // ✅ IDs match backend: kitkat, mms, chips
   const PRODUCTS = [
     { id: "kitkat", name: "🍫 Kitkat", price: 0.75 },
     { id: "mms",    name: "Ⓜ️ M&M's",  price: 0.50 },
@@ -138,16 +61,12 @@
 
   async function dispense(itemId, prettyName) {
     statusDiv.textContent = `Dispensing ${prettyName}...`;
-
     try {
       const resp = await fetch(`${PI_BASE}/dispense?item=${encodeURIComponent(itemId)}`, {
         method: 'GET',
         mode: 'cors',
-        headers: {
-          'ngrok-skip-browser-warning': '1'
-        }
+        headers: { 'ngrok-skip-browser-warning': '1' }
       });
-
       const text = await resp.text();
       statusDiv.textContent = `Response: ${text}`;
     } catch (err) {
